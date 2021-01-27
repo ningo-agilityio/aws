@@ -1,0 +1,5 @@
+{
+    "tableName": "booksDynamodb",
+    "partitionKeyName": "id",
+    "partitionKeyType": "S"
+}

@@ -1,0 +1,5 @@
+{
+    "triggerFunctions": [
+        "booksDynamodbTrigger86caae7f"
+    ]
+}

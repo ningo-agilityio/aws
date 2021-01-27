@@ -1,0 +1,45 @@
+{
+    "paths": [
+        {
+            "name": "/books",
+            "lambdaFunction": "booksDynamodbTrigger86caae7f",
+            "privacy": {
+                "protected": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ],
+                "unauth": [
+                    "/GET"
+                ]
+            },
+            "policyResourceName": "/books"
+        }
+    ],
+    "resourceName": "books",
+    "apiName": "books",
+    "functionArns": [
+        {
+            "lambdaFunction": "booksDynamodbTrigger86caae7f"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 1,
+        "authRoleName": "amplify-amplifyrestapi-dev-91726-authRole",
+        "unAuthRoleName": "amplify-amplifyrestapi-dev-91726-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "booksDynamodbTrigger86caae7f",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
