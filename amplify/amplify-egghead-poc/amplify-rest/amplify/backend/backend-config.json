@@ -1,40 +1,47 @@
 {
-  "storage": {
-    "employee": {
-      "service": "DynamoDB",
-      "providerPlugin": "awscloudformation"
+  "auth": {
+    "amplifyrestpocc1d1c3be": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
     }
   },
   "function": {
-    "employeeFunction": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
+    "employeeTriggercbe0f599": {
       "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true,
       "dependsOn": [
         {
           "category": "storage",
           "resourceName": "employee",
           "attributes": [
             "Name",
-            "Arn"
-          ],
-          "attributeEnvMap": {
-            "Name": "TABLE_NAME",
-            "Arn": "TABLE_ARN"
-          }
+            "Arn",
+            "StreamArn"
+          ]
         }
       ]
+    },
+    "employeeFunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
-  "auth": {
-    "cognitob78ace8e": {
-      "service": "Cognito",
-      "serviceType": "managed",
+  "storage": {
+    "employee": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
+    },
+    "amplifyrests3": {
+      "service": "S3",
       "providerPlugin": "awscloudformation"
     }
   },
   "api": {
-    "employee": {
+    "employeeapi": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
       "dependsOn": [

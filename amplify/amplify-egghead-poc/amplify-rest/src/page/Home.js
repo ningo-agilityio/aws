@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { styles } from './styles'
-import { API } from 'aws-amplify'
+import { Auth, Storage } from 'aws-amplify'
+import axios from 'axios'
+import { apiConfig } from '../config/api-config'
 
-const initialState = { name: '', description: '' }
+const initialState = { 
+  name: '', 
+  avatar: {
+    fileUrl: '',
+    file: '',
+    filename: ''
+  }
+}
 
 const Home = () => {
   const [formState, setFormState] = useState(initialState)
@@ -18,10 +27,26 @@ const Home = () => {
     setFormState({ ...formState, [key]: value })
   }
 
+  const onSelectAvatar = (e) => {
+    const file = e.target.files[0]
+    setFormState({ ...formState, avatar: {
+      fileUrl: URL.createObjectURL(file),
+      file,
+      filename: file.name
+    }})
+  }
+
   const fetchData = async () => {
     try {
-      // const response = await API.graphql(graphqlOperation(listBooks))
-      setData([])
+      Auth.currentAuthenticatedUser()
+      .then(async () => {
+        await apiConfig()
+        axios.get("/employee")
+          .then((response) => {
+            setProcessing(false)
+            setData(response.data.Items)
+          })
+      })
     } catch(err) {
       setError("Something wrong during fetching data")
     } finally {
@@ -31,15 +56,29 @@ const Home = () => {
 
   const addEmployee = async () => {
     try {
-      if (!formState.name || !formState.description) {
+      if (!formState.name || !formState.avatar.fileUrl) {
         return
       }
+
+      await Storage.put(formState.avatar.filename, formState.avatar.file) 
+      
       const employee = { ...formState }
-      setData([...data, employee])
-      setFormState(initialState)
-      // await API.graphql(graphqlOperation(createBook, {input: book}))
+      // Call api to add employee into db
+      axios.post("/employee", {
+        id: `u-${Math.random(100).toString()}`,
+        name: formState.name
+      }, {
+        headers: {
+          Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`
+        }
+      })
+        .then(() => {
+          setProcessing(false)
+          setData([...data, employee])
+          setFormState(initialState)
+        })   
     } catch (err) {
-      setError("Something wrong during creating new book")
+      setError("Something wrong during creating new employee")
     } finally {
       setProcessing(false)
     }
@@ -49,6 +88,12 @@ const Home = () => {
     <div style={styles.container}>
       <h2>Employees Managements App</h2>
       {error && <label>{error}</label>}
+      <img src={formState.avatar.fileUrl} alt="avatar" style={{
+        width: '100px',
+        height: '100px',
+        objectFit: 'cover'
+      }} />
+      <input type='file' onChange={onSelectAvatar} />
       <input
         onChange={event => setInput('name', event.target.value)}
         style={styles.input}

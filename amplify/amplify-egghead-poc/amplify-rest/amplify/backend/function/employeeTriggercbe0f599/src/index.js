@@ -9,13 +9,12 @@ if(process.env.ENV && process.env.ENV !== "NONE") {
 }
 
 exports.handler = function(event, context) {
-  var putItemParams = {
+  var params = {
     TableName: tableName,
-    Item: JSON.parse(event.body)
   };
-  ddb.put(putItemParams, function(err, data) {
+  ddb.scan(params, function(err, data) {
     if (err) {
-      errorResponse("Unable to add item. Error JSON:", context.awsRequestId, callback);
+      errorResponse("Unable to read item. Error JSON:", context.awsRequestId, callback);
     } else {
       callback(null, {
         statusCode: 201,

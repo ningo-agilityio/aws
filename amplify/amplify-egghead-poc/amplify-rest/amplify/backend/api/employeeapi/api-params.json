@@ -12,12 +12,11 @@
                     "/PATCH",
                     "/DELETE"
                 ]
-            },
-            "policyResourceName": "/employee"
+            }
         }
     ],
-    "resourceName": "employee",
-    "apiName": "employee",
+    "resourceName": "employeeapi",
+    "apiName": "employeeapi",
     "functionArns": [
         {
             "lambdaFunction": "employeeFunction"
@@ -26,8 +25,8 @@
     "privacy": {
         "auth": 1,
         "unauth": 0,
-        "authRoleName": "amplify-amplifyrestpoc-dev-160931-authRole",
-        "unAuthRoleName": "amplify-amplifyrestpoc-dev-160931-unauthRole"
+        "authRoleName": "amplify-amplifyrestpoc-dev-165704-authRole",
+        "unAuthRoleName": "amplify-amplifyrestpoc-dev-165704-unauthRole"
     },
     "dependsOn": [
         {
@@ -38,5 +37,6 @@
                 "Arn"
             ]
         }
-    ]
+    ],
+    "uuid": "8831230e"
 }
