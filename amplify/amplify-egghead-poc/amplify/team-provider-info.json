@@ -10,6 +10,11 @@
       "StackName": "amplify-amplifyeggheadpoc-dev-104401",
       "StackId": "arn:aws:cloudformation:us-east-1:681302528847:stack/amplify-amplifyeggheadpoc-dev-104401/1439b6b0-611b-11eb-9fc7-0ac12714be3f",
       "AmplifyAppId": "d3iqxhzjdu27xd"
+    },
+    "categories": {
+      "auth": {
+        "amplifyeggheadpoc2ed93a8c": {}
+      }
     }
   }
 }
