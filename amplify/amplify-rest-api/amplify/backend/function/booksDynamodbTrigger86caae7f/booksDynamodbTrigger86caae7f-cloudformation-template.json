@@ -72,7 +72,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-amplifyrestapi-dev-91726-deployment",
-          "S3Key": "amplify-builds/booksDynamodbTrigger86caae7f-6a43537a773236585a59-build.zip"
+          "S3Key": "amplify-builds/booksDynamodbTrigger86caae7f-5a314b46357838743447-build.zip"
         }
       }
     },
