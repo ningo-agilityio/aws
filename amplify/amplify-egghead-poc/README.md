@@ -51,5 +51,11 @@ You will also see any lint errors in the console.
 To build all local backend and frontend resources and provision it in the cloud, we run:
 
 ```
+amplify hosting add
+```
+
+then:
+
+```
 amplify publish
 ```
