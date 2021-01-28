@@ -1,0 +1,42 @@
+{
+    "paths": [
+        {
+            "name": "/employee",
+            "lambdaFunction": "employeeFunction",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            },
+            "policyResourceName": "/employee"
+        }
+    ],
+    "resourceName": "employee",
+    "apiName": "employee",
+    "functionArns": [
+        {
+            "lambdaFunction": "employeeFunction"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "amplify-amplifyrestpoc-dev-160931-authRole",
+        "unAuthRoleName": "amplify-amplifyrestpoc-dev-160931-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "employeeFunction",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

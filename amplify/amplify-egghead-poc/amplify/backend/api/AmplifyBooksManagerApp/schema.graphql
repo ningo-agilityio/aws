@@ -1,6 +1,0 @@
-type Book @model {
-  id: ID!
-  name: String!
-  description: String
-  sold: Boolean
-}
