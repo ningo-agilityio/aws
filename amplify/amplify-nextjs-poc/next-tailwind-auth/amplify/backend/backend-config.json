@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "amplifynextjspocc5b70870": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
