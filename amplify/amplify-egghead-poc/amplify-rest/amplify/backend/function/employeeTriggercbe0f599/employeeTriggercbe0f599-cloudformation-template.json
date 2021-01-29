@@ -109,7 +109,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-amplifyrestpoc-dev-165704-deployment",
-          "S3Key": "amplify-builds/employeeTriggercbe0f599-6f624448597a54754c75-build.zip"
+          "S3Key": "amplify-builds/employeeTriggercbe0f599-55416d4737304a434a70-build.zip"
         }
       }
     },

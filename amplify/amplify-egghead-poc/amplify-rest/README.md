@@ -1,4 +1,6 @@
 # Serverless Web Applications with React & AWS Amplify
+## **Overview**:
+![Alt text](src/assets/images/amplify-rest.png?raw=true "Diagram")
 
 ## **Prerequisites**:
 (Refer [guide](https://docs.amplify.aws/start/getting-started/installation/q/integration/react))

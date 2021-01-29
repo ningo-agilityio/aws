@@ -1,6 +1,5 @@
 import axios from 'axios'
 import awsconfig from '../aws-exports';
-import { Auth } from 'aws-amplify'
 
 export const apiConfig = async () => {
   axios.defaults.baseURL = awsconfig.aws_cloud_logic_custom[0]["endpoint"];
