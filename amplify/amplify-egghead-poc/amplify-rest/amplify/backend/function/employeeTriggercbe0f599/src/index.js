@@ -9,7 +9,7 @@ if(process.env.ENV && process.env.ENV !== "NONE") {
 const headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-  'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-*'
 }
 
 function errorResponse(errMessage, requestId, callback) {
@@ -23,7 +23,7 @@ function errorResponse(errMessage, requestId, callback) {
   });
 }
 
-exports.handler = function(event, context) {
+exports.handler = function(event, context, callback) {
   var params = {
     TableName: tableName,
   };

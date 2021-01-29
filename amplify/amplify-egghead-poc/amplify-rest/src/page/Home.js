@@ -17,7 +17,9 @@ const Home = () => {
   const [formState, setFormState] = useState(initialState)
   const [data, setData] = useState([])
   const [error, setError] = useState()
-  const [processing, setProcessing] = useState(true)
+
+  // 0: not processing, 1: uploading, 2: processing/loading
+  const [processing, setProcessing] = useState(2)
 
   useEffect(() => {
     fetchData()
@@ -43,25 +45,25 @@ const Home = () => {
         await apiConfig()
         axios.get("/employee")
           .then((response) => {
-            setProcessing(false)
+            setProcessing(0)
             setData(response.data.Items)
           })
       })
     } catch(err) {
       setError("Something wrong during fetching data")
-    } finally {
-      setProcessing(false)
+      setProcessing(0)
     }
   }
 
   const addEmployee = async () => {
-    setProcessing(true)
+    setProcessing(1)
     try {
       if (!formState.name || !formState.avatar.fileUrl) {
         return
       }
 
-      await Storage.put(formState.avatar.filename, formState.avatar.file) 
+      await Storage.put(formState.avatar.filename, formState.avatar.file)
+        .then(() => { setProcessing(2) })
       
       const employee = { ...formState }
       // Call api to add employee into db
@@ -74,30 +76,29 @@ const Home = () => {
         }
       })
         .then(() => {
-          setProcessing(false)
+          setProcessing(0)
           setData([...data, employee])
           setFormState(initialState)
         })   
     } catch (err) {
       setError("Something wrong during creating new employee")
-    } finally {
       setProcessing(false)
     }
   }
 
   return (
-    <div style={{
-      ...styles.container,
-      position: 'relative'
-    }}>
+    <div style={styles.container}>
       <h2>Employees Managements App</h2>
       {error && <label>{error}</label>}
       <img src={formState.avatar.fileUrl} alt="avatar" style={{
         width: '100px',
         height: '100px',
-        objectFit: 'cover'
+        objectFit: 'cover',
+        marginBottom: '10px',
+        alignSelf: 'center'
       }} />
-      <input type='file' onChange={onSelectAvatar} style={{ marginBottom: '20px' }} />
+      <input type='file' onChange={onSelectAvatar} style={{ marginBottom: '50px', alignSelf: 'center' }} />
+      {/* Employee form */}
       <input
         onChange={event => setInput('name', event.target.value)}
         style={styles.input}
@@ -106,14 +107,17 @@ const Home = () => {
       />
       <button style={styles.button} onClick={addEmployee}>Add new employee</button>
       {
-        processing && <div style={{
+        !!processing && <div style={{
           ...styles.container,
           backgroundColor: 'rgba(0, 0, 0, 0.2)',
           position: 'absolute',
           top: '0',
+          left: '0',
           height: '100%',
-          textAlign: 'center'
-        }}>Loading...</div>
+          textAlign: 'center',
+          width: '100%',
+          color: '#fff'
+        }}>{`${processing === 1 ? 'Uploading' : 'Loading'}...`}</div>
       }
       {
         data.map((item, index) => (
