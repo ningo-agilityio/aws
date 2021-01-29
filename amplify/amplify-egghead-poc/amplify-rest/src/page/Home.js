@@ -7,7 +7,7 @@ import { apiConfig } from '../config/api-config'
 const initialState = { 
   name: '', 
   avatar: {
-    fileUrl: '',
+    fileUrl: 'https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?b=1&k=6&m=1214428300&s=612x612&w=0&h=kMXMpWVL6mkLu0TN-9MJcEUx1oSWgUq8-Ny6Wszv_ms=',
     file: '',
     filename: ''
   }
@@ -55,6 +55,7 @@ const Home = () => {
   }
 
   const addEmployee = async () => {
+    setProcessing(true)
     try {
       if (!formState.name || !formState.avatar.fileUrl) {
         return
@@ -85,7 +86,10 @@ const Home = () => {
   }
 
   return (
-    <div style={styles.container}>
+    <div style={{
+      ...styles.container,
+      position: 'relative'
+    }}>
       <h2>Employees Managements App</h2>
       {error && <label>{error}</label>}
       <img src={formState.avatar.fileUrl} alt="avatar" style={{
@@ -93,7 +97,7 @@ const Home = () => {
         height: '100px',
         objectFit: 'cover'
       }} />
-      <input type='file' onChange={onSelectAvatar} />
+      <input type='file' onChange={onSelectAvatar} style={{ marginBottom: '20px' }} />
       <input
         onChange={event => setInput('name', event.target.value)}
         style={styles.input}
@@ -102,7 +106,14 @@ const Home = () => {
       />
       <button style={styles.button} onClick={addEmployee}>Add new employee</button>
       {
-        processing && <p>Loading...</p>
+        processing && <div style={{
+          ...styles.container,
+          backgroundColor: 'rgba(0, 0, 0, 0.2)',
+          position: 'absolute',
+          top: '0',
+          height: '100%',
+          textAlign: 'center'
+        }}>Loading...</div>
       }
       {
         data.map((item, index) => (
