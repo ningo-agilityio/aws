@@ -1,0 +1,13 @@
+.btn {
+  @apply .block .rounded .py-2 .px-10 .mb-10 .border-gray-100;
+}
+
+.btn-primary {
+  @apply .bg-blue-200;
+}
+.btn-facebook {
+  @apply .bg-blue-400;
+}
+.btn-danger {
+  @apply .bg-red-200;
+}

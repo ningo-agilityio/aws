@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import '../styles/index.css'
 import Link from 'next/link'
 
 function MyApp({ Component, pageProps }) {
